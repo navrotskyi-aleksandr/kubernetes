@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: helloworld
+spec:
+  selector:
+    matchLabels:
+      app: helloworld-statefulset # has to match .spec.template.metadata.labels
+  replicas: 1
+  serviceName: helloworld-statefulset
+  template:
+    metadata:
+      labels:
+        app: helloworld-statefulset # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: nginx
+        image: k8s.gcr.io/nginx-slim:0.8
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: data
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:          # The volumeClaimTemplates will provide stable storage using PersistentVolumes provisioned by a PersistentVolume Provisioner.
+  - metadata:
+      name: data
+    spec:
+      storageClassName: "standard-demo"
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi

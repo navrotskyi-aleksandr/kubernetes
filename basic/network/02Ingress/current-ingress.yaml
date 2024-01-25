@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: helloworld-current
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: helloworld.devss.xyz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: helloworld-current
+            port:
+              number: 3000

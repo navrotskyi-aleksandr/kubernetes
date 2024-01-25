@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworld-headless-service
+spec:
+  clusterIP: None
+  selector:
+    app: helloworld-deployment
+  ports:
+  - name: http
+    port: 80
+

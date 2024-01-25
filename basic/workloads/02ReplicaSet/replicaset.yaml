@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: helloworld-replicaset
+  labels:
+    app: helloworld-replicaset
+    version: v0.1
+spec:
+  # modify replicas according to your case
+  replicas: 2
+  selector:
+    matchLabels:
+      app: helloworld-replicaset  # has to match .spec.template.metadata.labels
+  template:
+    metadata:
+      labels:
+        app: helloworld-replicaset  # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: frontend
+        image: gcr.io/google_samples/gb-frontend:v3

@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: helloworld-daemonset
+  labels:
+    app: helloworld-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: helloworld-daemonset
+  template:
+    metadata:
+      labels:
+        app: helloworld-daemonset
+    spec:
+      containers:
+      - name: nginx
+        image: k8s.gcr.io/nginx-slim:0.8
